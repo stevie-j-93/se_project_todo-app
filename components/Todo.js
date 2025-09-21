@@ -15,7 +15,7 @@ class Todo {
 
   _setEventListeners() {
     this._todoCheckboxEl.addEventListener("change", (e) => {
-      const checked = e.target.checked; // ✅ ground truth
+      const checked = e.target.checked;
       this._data.completed = checked;
       this._completed = checked;
       this._todoElement.classList.toggle("todo_completed", checked);
@@ -48,13 +48,21 @@ class Todo {
     const todoDate = this._todoElement.querySelector(".todo__date");
 
     todoNameEl.textContent = this._data.name;
-    const dueDate = new Date(this._data.date);
-    if (!isNaN(dueDate)) {
-      todoDate.textContent = `Due: ${dueDate.toLocaleString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      })}`;
+    console.log(
+      "Date value:",
+      this._data.date,
+      "Type:",
+      typeof this._data.date
+    );
+    if (this._data.date) {
+      const dueDate = new Date(this._data.date);
+      if (!isNaN(dueDate)) {
+        todoDate.textContent = `Due: ${dueDate.toLocaleString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        })}`;
+      }
     }
     this._generateCheckboxEl();
     this._setEventListeners();

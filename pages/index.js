@@ -10,7 +10,7 @@ import TodoCounter from "../components/TodoCounter.js";
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
 const addTodoForm = document.forms["add-todo-form"];
-const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
+
 const counter = new TodoCounter(initialTodos, ".counter__text");
 const todosList = document.querySelector(".todos__list");
 
@@ -44,21 +44,6 @@ const section = new Section({
 
 section.renderItems();
 
-addTodoForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const name = evt.target.name.value;
-  const date = new Date(evt.target.date.value);
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-
-  const values = { id: uuidv4(), name, date };
-  const el = generateTodo(values);
-  wireDeleteForCounter(el);
-  section.addItem(el, { prepend: true });
-  counter.updateTotal(true);
-  newTodoValidator.resetValidation();
-  closeModal(addTodoPopup);
-});
-
 const addTodoModal = new PopupWithForm("#add-todo-popup", (values, popup) => {
   const name = values.name;
   const dateStr = values.date;
@@ -76,8 +61,6 @@ const addTodoModal = new PopupWithForm("#add-todo-popup", (values, popup) => {
 
 addTodoModal.setEventListeners();
 addTodoButton.addEventListener("click", () => addTodoModal.open());
-
-initialTodos.forEach((item) => {});
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 newTodoValidator.enableValidation();
