@@ -60,7 +60,9 @@ const addTodoModal = new PopupWithForm("#add-todo-popup", (values, popup) => {
 });
 
 addTodoModal.setEventListeners();
-addTodoButton.addEventListener("click", () => addTodoModal.open());
+addTodoButton.addEventListener("click", () => {
+  newTodoValidator.resetValidation();
+ addTodoModal.open()});
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 newTodoValidator.enableValidation();
